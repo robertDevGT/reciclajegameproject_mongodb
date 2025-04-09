@@ -10,7 +10,17 @@ router.post('/',
     handleInputErrors,
     CategoryController.createCategory
 );
+
 router.get('/',CategoryController.getAllCategories);
+
+router.get('/:id',CategoryController.getCategoryById);
+
+router.put('/:id',
+    body('categoryName').notEmpty().withMessage('El nombre de la categoria es obligatorio'),
+    handleInputErrors,
+    CategoryController.updateCategory);
+
+router.delete('/:id',CategoryController.deleteCategory);
 
 
 export default router;
