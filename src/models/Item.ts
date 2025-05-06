@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Types} from "mongoose";
 
-export type ItemType = Document & {
+export interface IItem extends Document {
   itemName: string;
   category: Types.ObjectId
 };
@@ -17,5 +17,5 @@ const ItemSchema : Schema = new Schema({
     }
 }, {timestamps: true});
 
-const Item = mongoose.model<ItemType>("Item",ItemSchema);
+const Item = mongoose.model<IItem>("Item",ItemSchema);
 export default Item;

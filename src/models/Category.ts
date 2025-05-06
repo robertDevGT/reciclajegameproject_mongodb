@@ -1,16 +1,16 @@
 import mongoose, { Schema, Document, PopulatedDoc, Types } from "mongoose";
-import { ItemType } from "./Item";
+import { IItem } from "./Item";
 
-export type CategoryType = Document & {
-  categoryName: string;
-  items: PopulatedDoc<ItemType & Document>[];
+export interface ICategory extends Document {
+    categoryName: string;
+    items: PopulatedDoc<IItem & Document>[];
 };
 
-const CategorySchema : Schema = new Schema({
+const CategorySchema: Schema = new Schema({
     categoryName: {
         type: String,
         required: true,
-        trim:true
+        trim: true
     },
     items: [
         {
@@ -18,7 +18,7 @@ const CategorySchema : Schema = new Schema({
             ref: 'Item',
         }
     ]
-}, {timestamps: true});
+}, { timestamps: true });
 
-const Category = mongoose.model<CategoryType>("Cateogory",CategorySchema);
+const Category = mongoose.model<ICategory>("Cateogory", CategorySchema);
 export default Category;
