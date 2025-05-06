@@ -13,4 +13,8 @@ router.post('/:categoryId',
     ItemControlller.createItem
 );
 
+router.get('/:categoryId',
+    validateCategoryExists,
+    ItemControlller.getItemsByCategory
+);
 export default router;

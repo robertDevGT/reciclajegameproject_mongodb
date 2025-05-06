@@ -10,7 +10,17 @@ export class ItemControlller {
             Promise.allSettled([item.save(), req.category.save()]);
             res.send("Item Creado Correctamente");
         } catch (error) {
-            console.log(error);
+            res.status(500).json({error: 'Hubo un error'})
+        }
+    };
+
+    static getItemsByCategory = async (req: Request, res: Response) => {
+        try {
+            const items = await Item.find({category: req.category.id});
+            res.json(items);
+        } catch (error) {
+            res.status(500).json({error: 'Hubo un error'})
         }
     };
 }
+
