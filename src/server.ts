@@ -1,8 +1,10 @@
+import { connectDB } from "./config/db";
 import express from "express";
 import dotenv from 'dotenv';
-import { connectDB } from "./config/db";
 import categoryRoutes from "./routes/categoryRoutes";
 import itemRoutes from "./routes/itemRoutes";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
 
 dotenv.config();
 
@@ -15,5 +17,7 @@ app.use(express.json());
 app.use('/api/categories', categoryRoutes);
 app.use('/api/items', itemRoutes);
 
+//Docs
+app.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app;

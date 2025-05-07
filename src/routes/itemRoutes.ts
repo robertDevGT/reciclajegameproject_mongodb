@@ -6,6 +6,27 @@ import { validateCategoryExists } from '../middleware/category';
 
 const router = Router();
 
+/**
+ * @swagger
+ * components:
+ *      schemas:
+ *          Item:
+ *                type: object
+ *                properties:
+ *                      id: 
+ *                          type: MongoId
+ *                          description: The Item ID
+ *                          example: 68199751011f2b2f077f32ac
+ *                      name:
+ *                          type: string
+ *                          description: The Item Name
+ *                          example: Lata de jugo
+ *                      categoryId:
+ *                          type: mongoId
+ *                          description: The Category Id that the Item Belongs To
+ *                          example: 68199751011f2b2f077f32ac
+ */
+
 router.post('/:categoryId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
     handleInputErrors,
