@@ -22,4 +22,15 @@ router.get('/',
     ItemControlller.getItems
 );
 
+router.get('/:itemId/item',
+    ItemControlller.getItemById
+);
+
+
+router.put('/:itemId',
+    body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
+    handleInputErrors,
+    ItemControlller.updateItem
+);
+
 export default router;
