@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { body } from 'express-validator';
+import { body, param } from 'express-validator';
 import { handleInputErrors } from '../middleware/validation';
 import { ItemControlller } from '../controllers/ItemController';
 import { validateCategoryExists } from '../middleware/category';
@@ -31,6 +31,14 @@ router.put('/:itemId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
     handleInputErrors,
     ItemControlller.updateItem
+);
+
+router.delete('/:categoryId/:itemId',
+    param('categoryId').isMongoId().withMessage('ID de categoria no válido'),
+    param('itemId').isMongoId().withMessage('ID de item no válido'),
+    handleInputErrors,
+    validateCategoryExists,
+    ItemControlller.deleteItem
 );
 
 export default router;

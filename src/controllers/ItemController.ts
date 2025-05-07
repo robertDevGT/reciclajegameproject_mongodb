@@ -64,5 +64,24 @@ export class ItemControlller {
             res.status(500).json({error: 'Hubo un error'})
         }
     };
+
+    static deleteItem = async (req: Request, res: Response) => {
+        try {
+            const { itemId } = req.params;
+            const item = await Item.findById(itemId);
+
+            if(!item){
+                res.status(404).json({error: 'Item no encontrado'});
+            }
+            
+            req.category.items = req.category.items.filter(item => item.toString() !== itemId);
+
+            await Promise.allSettled([item.deleteOne(),req.category.save()]);
+            res.json('Item eliminado correctamente');
+            
+        } catch (error) {
+            res.status(500).json({error: 'Hubo un error'})
+        }
+    };
 }
 
