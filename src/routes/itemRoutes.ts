@@ -17,4 +17,9 @@ router.get('/:categoryId',
     validateCategoryExists,
     ItemControlller.getItemsByCategory
 );
+
+router.get('/',
+    ItemControlller.getItems
+);
+
 export default router;

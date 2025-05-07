@@ -22,5 +22,14 @@ export class ItemControlller {
             res.status(500).json({error: 'Hubo un error'})
         }
     };
+
+    static getItems = async (req: Request, res: Response) => {
+        try {
+            const items = await Item.aggregate([{$sample: {size:10}}]);
+            res.json(items);
+        } catch (error) {
+            res.status(500).json({error: 'Hubo un error'})
+        }
+    };
 }
 
