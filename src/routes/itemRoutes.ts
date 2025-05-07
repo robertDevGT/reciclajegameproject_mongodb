@@ -175,10 +175,10 @@ router.put('/:itemId',
  * @swagger
  * /api/items/{categoryId}/{itemId}:
  *      delete:
- *          summary: Elimina una Categoria
+ *          summary: Elimina un Item
  *          tags: 
  *              - Items
- *          description: Elimina una Categoria Fisicamente de la Base de Datos
+ *          description: Elimina un Item Fisicamente de la Base de Datos
  *          parameters:
  *             - in: path
  *               name: categoryId
