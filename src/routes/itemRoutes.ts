@@ -23,12 +23,17 @@ const router = Router();
  *                          example: Lata de jugo
  *                      categoryId:
  *                          type: mongoId
- *                          description: The Category Id that the Item Belongs To
+ *                          description: El ID de la Categoria a la que Pertenece
  *                          example: 68199751011f2b2f077f32ac
+ *                      imageUrl:
+ *                          type: string
+ *                          description: La imágen del Item
+ *                          example: https//:www.google.com
  */
 
 router.post('/:categoryId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
+    body('imageUrl').notEmpty().withMessage('La imágen del Item es obligatoria'),
     handleInputErrors,
     validateCategoryExists,
     ItemControlller.createItem
@@ -166,6 +171,7 @@ router.get('/:itemId/item',
 
 router.put('/:itemId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
+    body('imageUrl').notEmpty().withMessage('La imágen del item es obligatoria'),
     handleInputErrors,
     ItemControlller.updateItem
 );
