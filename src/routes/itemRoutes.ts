@@ -31,6 +31,45 @@ const router = Router();
  *                          example: https//:www.google.com
  */
 
+/**
+ * 
+ * @swagger
+ * /api/items/{categoryId}:
+ *      post:
+ *          summary: Crea un Item
+ *          tags: 
+ *              - Items
+ *          description: Crea un Item relacionado a una Categoria
+ *          requestBody:
+ *                  required: true
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              type: object      
+ *                              properties: 
+ *                                   itemName:
+ *                                      type: string
+ *                                      example: Lata de Cocacola
+ *                                   imageUrl:
+ *                                      type: string
+ *                                      example: https://www.google.com/cocacola.png
+ *          parameters:
+ *             - in: path
+ *               name: categoryId
+ *               description: El ID de la Categoria a la que Pertenece el Item
+ *               required: true
+ *               schema:
+ *                  type: string
+ *          responses:
+ *              200:
+ *                  description: Respuesta Exitosa
+ *              404:
+ *                 description: No Encontrado
+ *              500:
+ *                 description: Error de Servidor
+ */
+
+
 router.post('/:categoryId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
     body('imageUrl').notEmpty().withMessage('La imágen del Item es obligatoria'),
