@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { CategoryController } from '../controllers/CategoryController';
 import { handleInputErrors } from '../middleware/validation';
+import { param } from 'express-validator';
 
 const router = Router();
 /**
@@ -52,7 +53,7 @@ const router = Router();
  *                400:
  *                  description: Bad Request - Invalid Input Data
  *        
- */                            
+ */
 
 router.post('/',
     body('categoryName').notEmpty().withMessage('El nombre de la categoria es obligatorio'),
@@ -112,7 +113,10 @@ router.get('/', CategoryController.getAllCategories);
  *              500:
  *                 description: Error de Servidor
  */
-router.get('/:id', CategoryController.getCategoryById);
+router.get('/:id',
+    param('id').isMongoId().withMessage('El ID no es válido'),
+    handleInputErrors,
+    CategoryController.getCategoryById);
 
 /**
  * 
@@ -151,8 +155,10 @@ router.get('/:id', CategoryController.getCategoryById);
 
 router.put('/:id',
     body('categoryName').notEmpty().withMessage('El nombre de la categoria es obligatorio'),
+    param('id').isMongoId().withMessage('El ID no es válido'),
     handleInputErrors,
-    CategoryController.updateCategory);
+    CategoryController.updateCategory
+);
 
 /**
  * 
@@ -179,7 +185,11 @@ router.put('/:id',
  *                 description: Error de Servidor
  */
 
-router.delete('/:id', CategoryController.deleteCategory);
+router.delete('/:id',
+    param('id').isMongoId().withMessage('El ID no es válido'),
+    handleInputErrors,
+    CategoryController.deleteCategory
+);
 
 
 export default router;

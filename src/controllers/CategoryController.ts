@@ -5,7 +5,7 @@ export class CategoryController {
   static createCategory = async (req: Request, res: Response) => {
     try {
       await Category.create(req.body);
-      res.send("Categoría Creada Correctamente");
+      res.status(201).send("Categoria Creada Correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +24,7 @@ export class CategoryController {
     try {
       const { id } = req.params;
       const category = await Category.findById(id);
-      
+
       if (!category) {
         res.status(404).send("Categoría no encontrada");
         return;
@@ -40,14 +40,14 @@ export class CategoryController {
     try {
       const { id } = req.params;
       const category = await Category.findById(id);
-      await category.updateOne(req.body);
-      
+
       if (!category) {
         res.status(404).send("Categoría no encontrada");
         return;
       }
 
-      res.send("Categoría Actualizada Correctamente");
+      await category.updateOne(req.body);
+      res.status(201).send("Categoría Actualizada Correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -57,12 +57,12 @@ export class CategoryController {
     try {
       const { id } = req.params;
       const category = await Category.findById(id);
-      await category.deleteOne();
       if (!category) {
         res.status(404).send("Categoría no encontrada");
         return;
       }
-      res.send("Categoría Eliminada Correctamente");
+      await category.deleteOne();
+      res.status(201).send("Categoría Eliminada Correctamente");
     } catch (error) {
       console.log(error);
     }
