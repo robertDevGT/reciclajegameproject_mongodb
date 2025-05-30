@@ -73,6 +73,7 @@ const router = Router();
 router.post('/:categoryId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
     body('imageUrl').notEmpty().withMessage('La imágen del Item es obligatoria'),
+    param('categoryId').isMongoId().withMessage('El ID no es válido'),
     handleInputErrors,
     validateCategoryExists,
     ItemControlller.createItem
@@ -110,6 +111,8 @@ router.post('/:categoryId',
  */
 
 router.get('/:categoryId',
+    param('categoryId').isMongoId().withMessage('El ID no es válido'),
+    handleInputErrors,
     validateCategoryExists,
     ItemControlller.getItemsByCategory
 );
@@ -169,9 +172,10 @@ router.get('/',
  *                 description: Error de Servidor
  */
 router.get('/:itemId/item',
+    param('itemId').isMongoId().withMessage('El ID no es válido'),
+    handleInputErrors,
     ItemControlller.getItemById
 );
-
 
 /**
  * 
@@ -211,6 +215,7 @@ router.get('/:itemId/item',
 router.put('/:itemId',
     body('itemName').notEmpty().withMessage('El nombre del item es obligatorio'),
     body('imageUrl').notEmpty().withMessage('La imágen del item es obligatoria'),
+    param('itemId').isMongoId().withMessage('El ID no es válido'),
     handleInputErrors,
     ItemControlller.updateItem
 );
